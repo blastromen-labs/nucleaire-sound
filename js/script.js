@@ -118,23 +118,20 @@ document.querySelectorAll('.stat-number').forEach(counter => {
 // ===========================
 const contactForm = document.getElementById('contactForm');
 
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-    // Get form data
-    const formData = new FormData(contactForm);
-    const data = Object.fromEntries(formData);
+        const formData = new FormData(contactForm);
+        const data = Object.fromEntries(formData);
 
-    // Here you would typically send the data to a server
-    // For now, we'll just show a success message
-    console.log('Form submitted:', data);
+        console.log('Form submitted:', data);
 
-    // Show success message
-    alert('Thank you for your message! We will get back to you soon.');
+        alert('Thank you for your message! We will get back to you soon.');
 
-    // Reset form
-    contactForm.reset();
-});
+        contactForm.reset();
+    });
+}
 
 // ===========================
 // Release Play Button Animation
