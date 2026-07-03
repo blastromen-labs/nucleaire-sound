@@ -154,6 +154,60 @@ playButtons.forEach(button => {
 });
 
 // ===========================
+// Cover Art Lightbox
+// ===========================
+const coverLightbox = document.getElementById('coverLightbox');
+const coverLightboxImg = document.getElementById('coverLightboxImg');
+const coverLightboxWebp = document.getElementById('coverLightboxWebp');
+const coverLightboxCaption = document.getElementById('coverLightboxCaption');
+const coverTriggers = document.querySelectorAll('.release-cover[data-lightbox-src]');
+let lastFocusedElement = null;
+
+function openCoverLightbox(trigger) {
+    const src = trigger.getAttribute('data-lightbox-src');
+    const webp = trigger.getAttribute('data-lightbox-webp');
+    const alt = trigger.querySelector('img')?.getAttribute('alt') || 'Cover art';
+
+    coverLightboxImg.src = src;
+    coverLightboxImg.alt = alt;
+    coverLightboxWebp.srcset = webp || '';
+    coverLightboxCaption.textContent = alt.replace(' cover art', '');
+
+    lastFocusedElement = trigger;
+    coverLightbox.hidden = false;
+    coverLightbox.classList.add('is-open');
+    document.body.classList.add('lightbox-open');
+    coverLightbox.querySelector('.cover-lightbox-close').focus();
+}
+
+function closeCoverLightbox() {
+    coverLightbox.classList.remove('is-open');
+    coverLightbox.hidden = true;
+    document.body.classList.remove('lightbox-open');
+    coverLightboxImg.removeAttribute('src');
+    coverLightboxWebp.removeAttribute('srcset');
+
+    if (lastFocusedElement) {
+        lastFocusedElement.focus();
+        lastFocusedElement = null;
+    }
+}
+
+coverTriggers.forEach(trigger => {
+    trigger.addEventListener('click', () => openCoverLightbox(trigger));
+});
+
+coverLightbox?.querySelectorAll('[data-lightbox-close]').forEach(el => {
+    el.addEventListener('click', closeCoverLightbox);
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !coverLightbox?.hidden) {
+        closeCoverLightbox();
+    }
+});
+
+// ===========================
 // Smooth Scroll Enhancement
 // ===========================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

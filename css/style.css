@@ -508,6 +508,22 @@ a {
     aspect-ratio: 1;
     overflow: hidden;
     background: var(--color-bg-dark);
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    cursor: zoom-in;
+    text-align: left;
+    transition: var(--transition-smooth);
+}
+
+.release-cover:hover {
+    opacity: 0.92;
+}
+
+.release-cover:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
 }
 
 .release-cover picture,
@@ -516,12 +532,41 @@ a {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    pointer-events: none;
+}
+
+.release-cover-zoom {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(13, 13, 13, 0.45);
+    opacity: 0;
+    transition: var(--transition-smooth);
+    pointer-events: none;
+}
+
+.release-cover-zoom::before {
+    content: '';
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--color-bg-white);
+    background:
+        linear-gradient(var(--color-bg-white), var(--color-bg-white)) center/1rem 1px no-repeat,
+        linear-gradient(var(--color-bg-white), var(--color-bg-white)) center/1px 1rem no-repeat;
+}
+
+.release-cover:hover .release-cover-zoom,
+.release-cover:focus-visible .release-cover-zoom {
+    opacity: 1;
 }
 
 .release-badge {
     position: absolute;
     top: 1rem;
     right: 1rem;
+    z-index: 1;
     background: var(--color-primary);
     color: var(--color-text-light);
     font-size: 0.6rem;
@@ -659,6 +704,114 @@ a {
 .release-links-sep {
     margin: 0 0.35rem;
     color: var(--color-text-muted);
+}
+
+/* ===========================
+   Cover Art Lightbox
+   =========================== */
+.cover-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.cover-lightbox[hidden] {
+    display: none;
+}
+
+.cover-lightbox.is-open {
+    animation: lightboxFadeIn 0.3s ease;
+}
+
+.cover-lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 13, 13, 0.92);
+    cursor: zoom-out;
+}
+
+.cover-lightbox-dialog {
+    position: relative;
+    z-index: 1;
+    max-width: min(90vw, 640px);
+    width: 100%;
+    animation: lightboxScaleIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cover-lightbox-close {
+    position: absolute;
+    top: -2.75rem;
+    right: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: transparent;
+    color: var(--color-text-light);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cover-lightbox-close:hover,
+.cover-lightbox-close:focus-visible {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+.cover-lightbox-figure {
+    margin: 0;
+    background: var(--color-bg-dark);
+    border: 1px solid var(--color-border-dark);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+}
+
+.cover-lightbox-figure picture,
+.cover-lightbox-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: min(80vh, 640px);
+    object-fit: contain;
+}
+
+.cover-lightbox-caption {
+    padding: 1rem 1.25rem;
+    font-size: 0.75rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    text-align: center;
+    border-top: 1px solid var(--color-border-dark);
+}
+
+@keyframes lightboxFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes lightboxScaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+body.lightbox-open {
+    overflow: hidden;
 }
 
 /* ===========================
@@ -1076,6 +1229,17 @@ a {
 
     .artist-image {
         height: 300px;
+    }
+
+    .cover-lightbox {
+        padding: 1rem;
+    }
+
+    .cover-lightbox-close {
+        top: 0.75rem;
+        right: 0.75rem;
+        background: rgba(13, 13, 13, 0.75);
+        z-index: 2;
     }
 
     .contact-content {

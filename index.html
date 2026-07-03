@@ -88,7 +88,10 @@
             <h2 class="section-title" data-aos>Releases</h2>
             <div class="releases-grid">
                 <div class="release-card release-card--upcoming" data-aos>
-                    <div class="release-cover">
+                    <button class="release-cover" type="button"
+                        data-lightbox-src="img/blastromen-do-you-wanna-play-cover.jpg"
+                        data-lightbox-webp="img/blastromen-do-you-wanna-play-cover.webp"
+                        aria-label="View Do You Wanna Play? cover art">
                         <picture>
                             <source srcset="img/blastromen-do-you-wanna-play-cover.webp" type="image/webp">
                             <img src="img/blastromen-do-you-wanna-play-cover.jpg"
@@ -96,7 +99,8 @@
                                 loading="lazy">
                         </picture>
                         <span class="release-badge">Coming Soon</span>
-                    </div>
+                        <span class="release-cover-zoom" aria-hidden="true"></span>
+                    </button>
                     <div class="release-info">
                         <h3 class="release-title">Do You Wanna Play?</h3>
                         <p class="release-artist">Blastromen</p>
@@ -105,14 +109,18 @@
                     </div>
                 </div>
                 <div class="release-card" data-aos>
-                    <div class="release-cover">
+                    <button class="release-cover" type="button"
+                        data-lightbox-src="img/blastromen-forms-and-shapes-cover.jpg"
+                        data-lightbox-webp="img/blastromen-forms-and-shapes-cover.webp"
+                        aria-label="View Forms and Shapes cover art">
                         <picture>
                             <source srcset="img/blastromen-forms-and-shapes-cover.webp" type="image/webp">
                             <img src="img/blastromen-forms-and-shapes-cover.jpg"
                                 alt="Blastromen — Forms and Shapes cover art" width="800" height="800"
                                 loading="lazy">
                         </picture>
-                    </div>
+                        <span class="release-cover-zoom" aria-hidden="true"></span>
+                    </button>
                     <div class="release-video">
                         <iframe width="560" height="315"
                             src="https://www.youtube.com/embed/mAyyhurfcXs"
@@ -135,13 +143,17 @@
                     </div>
                 </div>
                 <div class="release-card" data-aos>
-                    <div class="release-cover">
+                    <button class="release-cover" type="button"
+                        data-lightbox-src="img/blastromen-i-am-power-cover.jpg"
+                        data-lightbox-webp="img/blastromen-i-am-power-cover.webp"
+                        aria-label="View I Am Power cover art">
                         <picture>
                             <source srcset="img/blastromen-i-am-power-cover.webp" type="image/webp">
                             <img src="img/blastromen-i-am-power-cover.jpg"
                                 alt="Blastromen — I Am Power cover art" width="800" height="800" loading="lazy">
                         </picture>
-                    </div>
+                        <span class="release-cover-zoom" aria-hidden="true"></span>
+                    </button>
                     <div class="release-video">
                         <iframe width="560" height="315"
                             src="https://www.youtube.com/embed/wdj4xwifb58?si=Gzys4JayIwbqgvR4"
@@ -240,6 +252,22 @@
             </div>
         </div>
     </footer>
+
+    <div class="cover-lightbox" id="coverLightbox" hidden>
+        <div class="cover-lightbox-backdrop" data-lightbox-close></div>
+        <div class="cover-lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="coverLightboxCaption">
+            <button class="cover-lightbox-close" type="button" data-lightbox-close aria-label="Close cover art">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <figure class="cover-lightbox-figure">
+                <picture>
+                    <source id="coverLightboxWebp" type="image/webp">
+                    <img id="coverLightboxImg" alt="">
+                </picture>
+                <figcaption id="coverLightboxCaption" class="cover-lightbox-caption"></figcaption>
+            </figure>
+        </div>
+    </div>
 
     <script src="js/script.js"></script>
 </body>
